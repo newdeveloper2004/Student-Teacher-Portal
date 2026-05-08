@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: stp_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: Student-Teacher-Portal
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: stp_backend
+    environment:
+      DATABASE_URL: postgresql://postgres:1234@db:5432/Student-Teacher-Portal
+    ports:
+      - "8081:8081"
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - ./frontend/Student-Teacher-Portal/dist:/app/frontend/Student-Teacher-Portal/dist
+
+  frontend:
+    build:
+      context: ./frontend/Student-Teacher-Portal
+      dockerfile: Dockerfile
+    container_name: stp_frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

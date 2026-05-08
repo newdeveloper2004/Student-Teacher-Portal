@@ -1,6 +1,6 @@
 // Utility functions for API calls with improved error handling
 
-const API_BASE_URL = 'http://ec2-13-53-187-159.eu-north-1.compute.amazonaws.com:8081';
+const API_BASE_URL = 'http://ec2-98-81-236-106.compute-1.amazonaws.com:8081';
 
 /**
  * Makes a fetch request with better error handling
