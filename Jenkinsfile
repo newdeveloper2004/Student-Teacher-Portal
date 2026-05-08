@@ -126,7 +126,7 @@ This email was sent automatically by Jenkins.
                     subject: subject,
                     body: body,
                     to: "${PUSHER_EMAIL}",
-                    replyTo: 'no-reply@jenkins.local'
+                    from: "ishaqareeb@gmail.com"
                 )
 
                 echo "Test results emailed to: ${PUSHER_EMAIL}"
