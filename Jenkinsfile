@@ -122,11 +122,10 @@ This email was sent automatically by Jenkins.
                 """.trim()
 
                 // Send email to the pusher
-                emailext(
-                    subject: subject,
-                    body: body,
+                mail(
                     to: "${PUSHER_EMAIL}",
-                    from: "ishaqareeb@gmail.com"
+                    subject: subject,
+                    body: body
                 )
 
                 echo "Test results emailed to: ${PUSHER_EMAIL}"
