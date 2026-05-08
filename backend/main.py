@@ -9,7 +9,9 @@ from fastapi.staticfiles import StaticFiles
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Student-Teacher-Portal API", version="1.0.0")
-app.mount("/static", StaticFiles(directory="../frontend/Student-Teacher-Portal/dist", html=True), name="frontend")
+import os
+if os.path.exists("../frontend/Student-Teacher-Portal/dist"):
+    app.mount("/static", StaticFiles(directory="../frontend/Student-Teacher-Portal/dist", html=True), name="frontend")
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
